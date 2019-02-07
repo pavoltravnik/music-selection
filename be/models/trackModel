@@ -1,0 +1,14 @@
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
+
+const trackModel = new Schema({
+	track_id: { type: String },
+	album: { type: String },
+	artist: { type: String },
+	url: { type: String },
+	thumbnail: { type: String },
+	name: { type: String },
+});
+
+module.exports = mongoose.model('Track', trackModel); // Like as name of the Table
