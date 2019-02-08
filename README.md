@@ -1,11 +1,13 @@
 # React app for voting for the good music tracks
 
 This simple application is designed to simply to choose the best Creative Commons music tracks.
+
 Available at [popoluska.paralelnapolis.sk](http://popoluska.paralelnapolis.sk)
+
 Dependencies:
-nodejs
-npm
-mongodb
+- nodejs
+- npm
+- mongodb
 
 and run `npm i` for installing npm dependencies in parend and be directory.
 
