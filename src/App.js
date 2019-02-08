@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       url: null,
       item : { thumbail : null, album: null },
-      rated: false
+      givenRating: false
     }
     this.rateTrack = this.rateTrack.bind(this);
   }
@@ -37,32 +37,33 @@ class App extends Component {
   }
 
   rateTrack(like, givenRating ,path) {
-    // 
-    if(this.state.rated === false || like === false) {
-      fetch(`${hostName}:${port}/api/likes`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            "url": path,
-            "like": like,
-            "givenRating": givenRating
-          }),
-        })
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(myJson) {
-          console.log(JSON.stringify(myJson));
-        });
-      this.setState({
-        rated: true
+    // Give rating if not rated yet
+    if (this.state.givenRating !== true) {
+    fetch(`${hostName}:${port}/api/likes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "url": path,
+          "like": like,
+          "givenRating": givenRating,
+          "date": new Date(),
+        }),
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        console.log(JSON.stringify(myJson));
       });
-      
+      this.setState({
+        givenRating: true
+      });
     }
-    // New track load
-    if( like !== true && givenRating === true ) {
+    
+    // New track load if 
+    if ( !(like === true && givenRating === true) ) {
       fetch(`${hostName}:${port}/api/likes`)
         .then(res => res.json())
         .then(
@@ -72,7 +73,7 @@ class App extends Component {
             this.setState({
               url,
               thumbnail,
-              rated: false
+              givenRating: false
             });
           },
           (error) => {
@@ -89,7 +90,7 @@ class App extends Component {
     const track = this.state.url
     const path = url + track;
     const path_img = url + this.state.thumbnail;
-    const rated = this.state.rated;
+    const givenRating = this.state.givenRating;
     return (
       <div className="App">
         <div>
@@ -104,7 +105,7 @@ class App extends Component {
         </div>
         <div className="buttons">
           <div className="float">
-            <button className="button like-button" onClick={ rated ?  null : () => this.rateTrack(true, true, track)}>Like</button>
+            <button className="button like-button" onClick={ givenRating ?  null : () => this.rateTrack(true, true, track)}>Like</button>
           </div>
           <div className="float">
             <button className="button dislike-button" onClick={() => this.rateTrack(false, true, track)}>Dislike</button>

@@ -6,6 +6,7 @@ const likeModel = new Schema({
 	url: { type: String },
 	like: { type: Boolean, default: false },
 	givenRating: { type: Boolean, default: false },
+	date: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Like', likeModel); // Like as name of the Table
