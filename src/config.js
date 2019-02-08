@@ -1,5 +1,5 @@
 export const config = {
-    hostName: 'http://arbitrix.org',
-    hostMusic: 'http://arbitrix.org',
+    hostName: 'http://popoluska.paralelnapolis.sk',
+    hostMusic: 'http://popoluska.paralelnapolis.sk',
     port: 3000
 };
