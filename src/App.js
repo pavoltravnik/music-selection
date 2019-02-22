@@ -36,9 +36,9 @@ class App extends Component {
     )
   }
 
-  rateTrack(like, givenRating ,path) {
+  rateTrack(like, givenRating, path, next) {
     // Give rating if not rated yet
-    if (this.state.givenRating !== true) {
+    if (this.state.givenRating !== true && next !== true) {
     fetch(`${hostName}:${port}/api/likes`, {
         method: "POST",
         headers: {
@@ -61,9 +61,9 @@ class App extends Component {
         givenRating: true
       });
     }
-    
-    // New track load if 
-    if ( !(like === true && givenRating === true) ) {
+
+    // New track load if
+    if ( !(like === true && givenRating === true) || next === true ) {
       fetch(`${hostName}:${port}/api/likes`)
         .then(res => res.json())
         .then(
@@ -101,14 +101,17 @@ class App extends Component {
           }
         </div>
         <div>
-            <audio id="myAudio" src={path} preload="auto" onEnded={() => this.rateTrack(true, false, track)} controls autoPlay/>
+            <audio id="myAudio" src={path} preload="auto" onEnded={() => this.rateTrack(true, false, track, false)} controls autoPlay/>
         </div>
         <div className="buttons">
           <div className="float">
-            <button className="button like-button" onClick={ givenRating ?  null : () => this.rateTrack(true, true, track)}>Like</button>
+            <button className="button like-button" onClick={ givenRating ?  null : () => this.rateTrack(true, true, track, false)}>Like</button>
           </div>
           <div className="float">
-            <button className="button dislike-button" onClick={() => this.rateTrack(false, true, track)}>Dislike</button>
+            <button className="button dislike-button" onClick={() => this.rateTrack(false, true, track, false)}>Dislike</button>
+          </div>
+          <div className="float">
+            <button className="button next-button" onClick={() => this.rateTrack(false, false, track, true)}>>></button>
           </div>
         </div>
       </div>

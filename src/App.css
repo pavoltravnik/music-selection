@@ -22,7 +22,7 @@
   color: #61dafb;
 }
 
-audio { 
+audio {
   width: 90%;
   margin: 30px;
 }
@@ -44,7 +44,6 @@ audio {
   font-size: 28px;
   color: #FFFFFF;
   padding: 20px;
-  width: 200px;
   text-align: center;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
@@ -75,17 +74,22 @@ audio {
 
 .float {
   float: left;
-  width: 50%;
+  width: 33%;
 }
 
 .buttons {
 }
+
 .like-button {
   background-color: #4CAF50; /* Green */
 }
 
 .dislike-button {
   background-color: #f44336;
+}
+
+.next-button {
+  background-color: #282c34;
 }
 
 .container {
